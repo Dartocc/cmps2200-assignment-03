@@ -6,3 +6,11 @@
 
 Place all written answers from `assignment-03.md` here for easier grading.
 
+1 a. For this algorithm, in order to produce the fewest amount of coins as possible when the denominations are powers of 2, we must always choose the largest coin value that does not exceed the remaining amount. 
+GreedyCoins(N):
+    coins = []
+    while N > 0:
+        c = largest power of 2 ≤ N
+        add c to coins
+        N = N - c
+    return coins

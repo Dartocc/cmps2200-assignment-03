@@ -14,3 +14,8 @@ So, by induction, the greedy algorithm yields the minimum number of coins.
 
 1c. The work is O( log N), because the number of coin denominations is proportional to the number of bits in N. The Span is O(1) if they are computed in parallel. 
 
+
+2a. Counterexample: If the denominations are 1, 3, 4 and we want to make change for N = 6.
+Greedy approach: take 4, then 1, then 1 is total of 3 coins.
+Optimal solution: 3 + 3 is a total of 2 coins.
+So, the greedy algorithm does not always yield the fewest coins when the denominations are arbitrary.

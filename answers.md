@@ -29,4 +29,17 @@ otherwise OPT(N) = min(1 + OPT(N - Di)) for all denominations Di ≤ N.
 
 This means that if the best way to make change for N uses one coin of value Di, then the rest of the coins must form an optimal solution for N − Di. Since the remaining amount is a smaller instance of the same problem, the overall problem exhibits optimal substructure.
 
-2c. 
+2c. We can use bottom up dynamic programming to to avoid recomputing subproblems.
+MakeChange(D[], N):
+    dp[0] = 0
+    for i in 1..N:
+        dp[i] = ∞
+        for each coin in D:
+            if coin ≤ i:
+                dp[i] = min(dp[i], 1 + dp[i - coin])
+    return dp[N]
+
+    The work is O(Nk), where k is the number of coin denominations.
+    And the SPan is O(Nk), where k is the number of coin denominations.
+
+    This  guarantees the minimum number of coins if change can be made, or returns infinity if it’s not possible.

@@ -39,7 +39,10 @@ MakeChange(D[], N):
                 dp[i] = min(dp[i], 1 + dp[i - coin])
     return dp[N]
 
-    The work is O(Nk), where k is the number of coin denominations.
-    And the SPan is O(Nk), where k is the number of coin denominations.
 
-    This  guarantees the minimum number of coins if change can be made, or returns infinity if it’s not possible.
+
+
+The work is O(Nk), where k is the number of coin denominations.
+And the SPan is O(Nk), where k is the number of coin denominations.
+
+This  guarantees the minimum number of coins if change can be made, or returns infinity if it’s not possible.

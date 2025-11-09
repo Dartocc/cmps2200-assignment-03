@@ -38,10 +38,77 @@ def med_top_down(S, T, MED={}):
     return MED[(S, T)]
     
 def fast_MED(S, T):
-    # TODO -  implement top-down memoization
-    pass
+    m, n = len(S), len(T)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    # Base cases
+    for i in range(m + 1):
+        dp[i][0] = i
+    for j in range(n + 1):
+        dp[0][j] = j
+
+    # Fill DP table
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if S[i - 1] == T[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1]
+            else:
+                dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1])
+
+    return dp[m][n]
+    
+    
 
 def fast_align_MED(S, T):
-    # TODO - keep track of alignment
-    pass
+    m, n = len(S), len(T)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    backtrack = [[None] * (n + 1) for _ in range(m + 1)]
+
+    # Base cases
+    for i in range(m + 1):
+        dp[i][0] = i
+        backtrack[i][0] = 'del'
+    for j in range(n + 1):
+        dp[0][j] = j
+        backtrack[0][j] = 'ins'
+    backtrack[0][0] = None
+
+    # Fill DP and backtrack
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if S[i - 1] == T[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1]
+                backtrack[i][j] = 'match'
+            else:
+                if dp[i - 1][j] <= dp[i][j - 1]:
+                    dp[i][j] = 1 + dp[i - 1][j]
+                    backtrack[i][j] = 'del'
+                else:
+                    dp[i][j] = 1 + dp[i][j - 1]
+                    backtrack[i][j] = 'ins'
+
+    # Reconstruct alignment
+    aligned_S = ""
+    aligned_T = ""
+    i, j = m, n
+
+    while i > 0 or j > 0:
+        move = backtrack[i][j]
+        if move == 'match':
+            aligned_S = S[i - 1] + aligned_S
+            aligned_T = T[j - 1] + aligned_T
+            i -= 1
+            j -= 1
+        elif move == 'del':
+            aligned_S = S[i - 1] + aligned_S
+            aligned_T = "-" + aligned_T
+            i -= 1
+        elif move == 'ins':
+            aligned_S = "-" + aligned_S
+            aligned_T = T[j - 1] + aligned_T
+            j -= 1
+
+    return (dp[m][n], aligned_S, aligned_T)
+    
+    
 

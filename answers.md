@@ -19,3 +19,14 @@ So, by induction, the greedy algorithm yields the minimum number of coins.
 Greedy approach: take 4, then 1, then 1 is total of 3 coins.
 Optimal solution: 3 + 3 is a total of 2 coins.
 So, the greedy algorithm does not always yield the fewest coins when the denominations are arbitrary.
+
+2b. 
+
+The problem has an optimal substructure because the optimal solution for making change for N can be built from the optimal solutions for smaller values of N. So,
+
+OPT(N) = 0 if N = 0,
+otherwise OPT(N) = min(1 + OPT(N - Di)) for all denominations Di ≤ N.
+
+This means that if the best way to make change for N uses one coin of value Di, then the rest of the coins must form an optimal solution for N − Di. Since the remaining amount is a smaller instance of the same problem, the overall problem exhibits optimal substructure.
+
+2c. 
